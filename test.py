@@ -17,6 +17,6 @@ center_y = 500 // 2
 radius = 200
 
 # Draw the circle, adjusting by radius to center it with a thicker outline
-circle_canvas.create_oval(center_x - radius, center_y - radius, center_x + radius, center_y + radius, outline="black", width=7)
+circle_canvas.create_oval(center_x - radius, center_y - radius, center_x + radius, center_y + radius, outline="black", width=10)
 
 win.mainloop()
