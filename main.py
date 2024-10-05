@@ -44,22 +44,22 @@ def load_image(image_path, size):
 button_size = (100, 100)
 
 # Load resized images
-no_music_img = load_image("no_music.png", button_size)
-campfire_img = load_image("campfire.png", button_size)
-waves_img = load_image("waves.png", button_size)
-rain_img = load_image("rain.png", button_size)
+no_music_img = load_image("images/no_music.png", button_size)
+campfire_img = load_image("images/campfire.png", button_size)
+waves_img = load_image("images/waves.png", button_size)
+rain_img = load_image("images/rain.png", button_size)
 
 # Create buttons with resized images
-button1 = Button(button_frame, image=no_music_img, width=100, height=100)
+button1 = Button(button_frame, image=no_music_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
 button1.pack(side=LEFT, padx=10)
 
-button2 = Button(button_frame, image=campfire_img, width=100, height=100)
+button2 = Button(button_frame, image=campfire_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
 button2.pack(side=LEFT, padx=10)
 
-button3 = Button(button_frame, image=waves_img, width=100, height=100)
+button3 = Button(button_frame, image=waves_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
 button3.pack(side=LEFT, padx=10)
 
-button4 = Button(button_frame, image=rain_img, width=100, height=100)
+button4 = Button(button_frame, image=rain_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
 button4.pack(side=LEFT, padx=10)
 
 # Start the Tkinter event loop
