@@ -6,8 +6,8 @@ RED = "#D50032"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 5
+WORK_MIN = 0.25  # Set for testing, adjust as needed
+SHORT_BREAK_MIN = 0.1
 LONG_BREAK_MIN = 20
 CHECK_MARK = "✔"
 reps = 0
@@ -26,6 +26,8 @@ def reset_timer():
     timer_label.config(text="Timer", fg=GREEN)
     checkmark_label.config(text="")
     pause_button.config(text="Pause")
+    start_button.config(state="normal")  # Re-enable start button
+    canvas.itemconfig(timer_image, image=work_img)  # Reset to work image
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
@@ -38,13 +40,18 @@ def start_timer():
 
     if reps % 8 == 0:
         count_down(long_break_sec)
-        timer_label.config(text="Break", fg=RED)
+        timer_label.config(text="Break", fg=YELLOW)
+        canvas.itemconfig(timer_image, image=break_img)  # Set break image
     elif reps % 2 == 0:
         count_down(short_break_sec)
-        timer_label.config(text="Break", fg=PINK)
+        timer_label.config(text="Break", fg=YELLOW)
+        canvas.itemconfig(timer_image, image=break_img)  # Set break image
     else:
         count_down(work_sec)
         timer_label.config(text="Work", fg=GREEN)
+        canvas.itemconfig(timer_image, image=work_img)  # Set work image
+
+    start_button.config(state="disabled")  # Disable start button after pressed
 
 # ---------------------------- PAUSE/RESUME MECHANISM ------------------------------- #
 def pause_timer():
@@ -83,14 +90,17 @@ def count_down(count):
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro")
-window.config(padx=100, pady=50, bg=YELLOW)
+window.config(padx=100, pady=50, bg=RED)
 
-timer_label = Label(text="Timer", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
+# Load images
+work_img = PhotoImage(file="download.png")  # Your work image file
+break_img = PhotoImage(file="break.png")  # Your break image file
+
+timer_label = Label(text="Timer", bg=RED, fg=GREEN, font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1)
 
-canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file="download.png")
-canvas.create_image(100, 112, image=tomato_img)
+canvas = Canvas(width=200, height=224, bg=RED, highlightthickness=0)
+timer_image = canvas.create_image(100, 112, image=work_img)  # Initial work image
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(row=1, column=1)
 
@@ -103,7 +113,7 @@ reset_button.grid(row=2, column=2)
 pause_button = Button(text="Pause", highlightbackground=YELLOW, highlightthickness=0, command=pause_timer)
 pause_button.grid(row=2, column=1)
 
-checkmark_label = Label(fg=GREEN, bg=YELLOW)
+checkmark_label = Label(fg=GREEN, bg=RED)
 checkmark_label.grid(row=3, column=1)
 
 window.mainloop()
