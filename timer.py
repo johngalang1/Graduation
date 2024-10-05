@@ -1,6 +1,4 @@
 from tkinter import *
-from PIL import Image, ImageTk
-import pygame 
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -9,15 +7,16 @@ GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
 WORK_MIN = 0.25  # Set for testing, adjust as needed
-SHORT_BREAK_MIN = 0.1
+SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECK_MARK = "✔"
 reps = 0
 timer = None
 is_paused = False
 paused_time = 0
-
-# ---------------------------- TIMER RESET ------------------------------- # 
+task_entries = []
+task_vars = []
+# ---------------------------- TIMER RESET ------------------------------- #
 def reset_timer():
     global reps, is_paused, paused_time
     reps = 0
@@ -31,7 +30,7 @@ def reset_timer():
     start_button.config(state="normal")  # Re-enable start button
     canvas.itemconfig(timer_image, image=work_img)  # Reset to work image
 
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     global reps
     reps += 1
@@ -69,7 +68,7 @@ def pause_timer():
         pause_button.config(text="Resume")
         is_paused = True
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def count_down(count):
     global timer, paused_time
     count_min = count // 60
@@ -95,8 +94,8 @@ window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=RED)
 
 # Load images
-work_img = PhotoImage(file="images/download.png")  # Your work image file
-break_img = PhotoImage(file="images/break.png")  # Your break image file
+work_img = PhotoImage(file="download.png")  # Your work image file
+break_img = PhotoImage(file="break.png")  # Your break image file
 
 timer_label = Label(text="Timer", bg=RED, fg=GREEN, font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1)
@@ -117,5 +116,27 @@ pause_button.grid(row=2, column=1)
 
 checkmark_label = Label(fg=GREEN, bg=RED)
 checkmark_label.grid(row=3, column=1)
+
+# Task input section (3 tasks)
+for i in range(3):
+    var = BooleanVar()  # Variable to hold the checkbox state
+    task_vars.append(var)
+
+    # Entry field for writing the task
+    task_entry = Entry(window, width=20, font=(FONT_NAME, 12))
+    task_entry.grid(row=4 + i, column=0, padx=5, pady=5)
+    task_entries.append(task_entry)
+
+    # Checkbox to check off tasks
+    def create_task_check(entry, var):
+        def check_task():
+            if var.get():
+                entry.config(fg=RED, font=(FONT_NAME, 12, "italic"))  # Strike-through effect
+            else:
+                entry.config(fg=GREEN, font=(FONT_NAME, 12, "normal"))  # Restore
+        return check_task
+
+    checkbox = Checkbutton(window, variable=var, command=create_task_check(task_entry, var))
+    checkbox.grid(row=4 + i, column=1)
 
 window.mainloop()
