@@ -36,8 +36,8 @@ button_frame = Frame(win, bg="white")  # Set button frame background to white
 button_frame.pack(pady=20)  # Add some vertical padding
 
 # Create buttons
-button1 = Button(button_frame, text="No Music")
-button1.pack(side=LEFT, padx=10)  # Add horizontal padding between buttons
+no_music = Button(button_frame, text="No Music")
+no_music.pack(side=LEFT, padx=10)  # Add horizontal padding between buttons
 
 button2 = Button(button_frame, text="Campfire Sound")
 button2.pack(side=LEFT, padx=10)
