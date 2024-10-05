@@ -101,14 +101,8 @@ break_img = PhotoImage(file="break.png")  # Your break image file
 timer_label = Label(text="Timer", bg=RED, fg=GREEN, font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1)
 
-<<<<<<< HEAD
-canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file="download.png")
-canvas.create_image(100, 112, image=tomato_img)
-=======
 canvas = Canvas(width=200, height=224, bg=RED, highlightthickness=0)
 timer_image = canvas.create_image(100, 112, image=work_img)  # Initial work image
->>>>>>> cae1886d8d1ab84cbd2b053e13274897e414bb91
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(row=1, column=1)
 
