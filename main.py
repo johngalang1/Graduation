@@ -1,13 +1,17 @@
 from tkinter import *
-from PIL import Image, ImageTk  # Import Image and ImageTk from Pillow
+from PIL import Image, ImageTk
+import pygame
 
-# Create an instance of tkinter frame
+pygame.mixer.init()
+
+def play_sound(sound_file):
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play()
+
 win = Tk()
 
-# Define the geometry of window
 win.geometry("2560x1664")
-
-# Set the background color to white
 win.config(bg="white")
 
 #--------------------------------------------------------------------------------------------------------------------------------------
@@ -50,16 +54,16 @@ waves_img = load_image("images/waves.png", button_size)
 rain_img = load_image("images/rain.png", button_size)
 
 # Create buttons with resized images
-button1 = Button(button_frame, image=no_music_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
+button1 = Button(button_frame, image=no_music_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound(None))
 button1.pack(side=LEFT, padx=10)
 
-button2 = Button(button_frame, image=campfire_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
+button2 = Button(button_frame, image=campfire_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/campfire_sound.mp3"))
 button2.pack(side=LEFT, padx=10)
 
-button3 = Button(button_frame, image=waves_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
+button3 = Button(button_frame, image=waves_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/waves_sound.mp3"))
 button3.pack(side=LEFT, padx=10)
 
-button4 = Button(button_frame, image=rain_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0)
+button4 = Button(button_frame, image=rain_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/rain_sound.mp3"))
 button4.pack(side=LEFT, padx=10)
 
 # Start the Tkinter event loop
