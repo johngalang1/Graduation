@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-import pygame
+import pygame 
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
