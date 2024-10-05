@@ -95,8 +95,8 @@ window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=RED)
 
 # Load images
-work_img = PhotoImage(file="download.png")  # Your work image file
-break_img = PhotoImage(file="break.png")  # Your break image file
+work_img = PhotoImage(file="images/download.png")  # Your work image file
+break_img = PhotoImage(file="images/break.png")  # Your break image file
 
 timer_label = Label(text="Timer", bg=RED, fg=GREEN, font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1)
