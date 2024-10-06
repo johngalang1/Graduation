@@ -54,14 +54,19 @@ def start_timer():
         count_down(long_break_sec)
         timer_label.config(text="Break", fg=YELLOW)
         canvas.itemconfig(timer_image, image=break_img)  # Set break image
+        play_sound("music/kanye_good_morning.mp3")
+
     elif reps % 2 == 0:
         count_down(short_break_sec)
         timer_label.config(text="Break", fg=YELLOW)
         canvas.itemconfig(timer_image, image=break_img)  # Set break image
+        play_sound("music/kanye_good_morning.mp3")
+
     else:
         count_down(work_sec)
         timer_label.config(text="Work", fg=GREEN)
         canvas.itemconfig(timer_image, image=work_img)  # Set work image
+        play_sound("music/how-sway-1.mp3")
 
     start_button.config(state="disabled")  # Disable start button after pressed
 
@@ -97,7 +102,7 @@ def count_down(count):
         marks = ""
         for _ in range(reps // 2):
             marks += f"{CHECK_MARK}"
-        checkmark_label.config(text=marks)
+        #checkmark_label.config(text=marks)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -115,14 +120,14 @@ def load_and_resize_image(file_path, size):
     return ImageTk.PhotoImage(resized_image)
 
 # Load images
-work_img = load_and_resize_image("images/download.png", (400, 400))  # Resize to 300x300
-break_img = load_and_resize_image("images/break.png", (400, 400))  # Resize to 300x300
+work_img = load_and_resize_image("images/download.png", (385, 385))  # Resize to 300x300
+break_img = load_and_resize_image("images/break.png", (385, 385))  # Resize to 300x300
 
 timer_label = Label(text="Timer", bg=RED, fg=GREEN, justify="left", font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1, columnspan=2)
 
-canvas = Canvas(width=400, height=400, bg=RED, highlightthickness=0)
-timer_image = canvas.create_image(200, 200, image=work_img)  # Initial work image
+canvas = Canvas(width=400, height=400, bg="#d7a858", highlightthickness=0)
+timer_image = canvas.create_image(200, 200, image=work_img,)  # Initial work image
 timer_text = canvas.create_text(200, 200, text="00:00", fill=WHITE, font=(FONT_NAME, 60, "bold"))
 canvas.grid(row=1, column=1, columnspan=2)
 
