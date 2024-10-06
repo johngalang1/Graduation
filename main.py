@@ -16,10 +16,13 @@ GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 WHITE = "#ffffff"
 GOLD = "#d7a858"
-FONT_NAME = "MS Sans Serif"
-WORK_MIN = 0.25  # Set for testing, adjust as needed
-SHORT_BREAK_MIN = 0.1
-LONG_BREAK_MIN = 20
+FONT_NAME = "Baskerville"
+SIZE = "2560x1664"
+PADDING = (20, 0)
+IMAGE_SIZE = (385, 385)
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 15
 CHECK_MARK = "✔"
 reps = 0
 timer = None
@@ -66,7 +69,7 @@ def start_timer():
         count_down(work_sec)
         timer_label.config(text="Work", fg=GREEN)
         canvas.itemconfig(timer_image, image=work_img)  # Set work image
-        play_sound("music/how-sway-1.mp3")
+        play_sound("music/beep.mp3")
 
     start_button.config(state="disabled")  # Disable start button after pressed
 
@@ -102,21 +105,20 @@ def count_down(count):
         marks = ""
         for _ in range(reps // 2):
             marks += f"{CHECK_MARK}"
-        #checkmark_label.config(text=marks)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("MY BEAUTIFUL DARK TWISTED POMODORO")
-window.geometry("2560x1664") 
-window.config(padx=100, pady=50, bg=RED)
+window.geometry(SIZE) 
+window.config(padx=100, pady=20, bg=RED)
 
 def load_and_resize_image(file_path, size):
     image = Image.open(file_path)
     resized_image = image.resize(size, Image.LANCZOS)
     return ImageTk.PhotoImage(resized_image)
 
-work_img = load_and_resize_image("images/download.png", (385, 385))
-break_img = load_and_resize_image("images/break.png", (385, 385))
+work_img = load_and_resize_image("images/download.png", IMAGE_SIZE)
+break_img = load_and_resize_image("images/break.png", IMAGE_SIZE)
 
 timer_label = Label(text="Timer", bg=RED, fg=GREEN, justify="left", font=(FONT_NAME, 50))
 timer_label.grid(row=0, column=1, columnspan=2)
@@ -146,17 +148,19 @@ campfire_img = load_image("images/campfire.png", button_size)
 waves_img = load_image("images/waves.png", button_size)
 rain_img = load_image("images/rain.png", button_size)
 
-no_music_button = Button(image=no_music_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound(None))
-campfire_button = Button(image=campfire_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/campfire_sound.mp3"))
-waves_button = Button(image=waves_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/waves_sound.mp3"))
-rain_button = Button(image=rain_img, width=100, height=100, highlightbackground="#ffffff", highlightthickness=0, command=lambda: play_sound("music/rain_sound.mp3"))
+no_music_button = Button(image=no_music_img, width=100, height=100, highlightbackground=WHITE, highlightthickness=0, command=lambda: play_sound(None))
+campfire_button = Button(image=campfire_img, width=100, height=100, highlightbackground=WHITE, highlightthickness=0, command=lambda: play_sound("music/campfire_sound.mp3"))
+waves_button = Button(image=waves_img, width=100, height=100, highlightbackground=WHITE, highlightthickness=0, command=lambda: play_sound("music/waves_sound.mp3"))
+rain_button = Button(image=rain_img, width=100, height=100, highlightbackground=WHITE, highlightthickness=0, command=lambda: play_sound("music/rain_sound.mp3"))
 task_label = Label(text="Tasks:", bg=RED, fg=WHITE, justify="left", font=(FONT_NAME, 25))
-task_label.grid(row=4, column=0)
+task_label.grid(row=6, column=0)
+sound_label = Label(text="Sound", bg=RED, fg=WHITE, justify="left", font=(FONT_NAME, 25))
+sound_label.grid(row=3, column=1, columnspan=2)
 
-no_music_button.grid(row=3, column=0, pady=(20, 0))
-campfire_button.grid(row=3, column=1, pady=(20, 0))
-waves_button.grid(row=3, column=2, pady=(20, 0))
-rain_button.grid(row=3, column=3, pady=(20, 0))
+no_music_button.grid(row=4, column=0, pady=PADDING)
+campfire_button.grid(row=4, column=1, pady=PADDING)
+waves_button.grid(row=4, column=2, pady=PADDING)
+rain_button.grid(row=4, column=3, pady=PADDING)
 
 window.grid_columnconfigure(0, weight=1)
 window.grid_columnconfigure(1, weight=1)
@@ -168,19 +172,19 @@ for i in range(3):
     task_vars.append(var)
 
     task_entry = Entry(window, width=15, justify="left", font=(FONT_NAME, 12), fg=GREEN)
-    task_entry.grid(row=4 + i, column=1, padx=5, pady=(10, 0))
+    task_entry.grid(row=6 + i, column=1, padx=5, pady=(10, 0))
     task_entry.insert(0, f"Task {i+1}")
     task_entries.append(task_entry)
 
     def create_task_check(entry, var):
         def check_task():
             if var.get():
-                entry.config(fg=RED, font=(FONT_NAME, 12, "italic"))
+                entry.config(fg=RED, font=(FONT_NAME, 12, "italic overstrike"))
             else:
                 entry.config(fg=GREEN, font=(FONT_NAME, 12, "normal"))
         return check_task
 
     checkbox = Checkbutton(window, variable=var, background=RED,command=create_task_check(task_entry, var))
-    checkbox.grid(row=4 + i, column=2)
+    checkbox.grid(row=6 + i, column=2)
 
 window.mainloop()
